@@ -311,7 +311,7 @@ def get_recommendations_for_person(person_id, top_n=5):
     return final_recommendations, discount_recommendations, basicneeds_recommendations, similarity_recommendations
 
 # Example Usage
-recommended_main, recommended_discounted, recommended_basicneeds, recommended_similarity = get_recommendations_for_person(person_id=11, top_n=10)
+recommended_main, recommended_discounted, recommended_basicneeds, recommended_similarity = get_recommendations_for_person(person_id=1, top_n=13)
 print("Main Recommendations:", recommended_main)
 print("Additional Discounted Recommendations:", recommended_discounted)
 print("BasicNeeds Recommendations:", recommended_basicneeds)

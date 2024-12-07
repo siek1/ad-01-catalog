@@ -5,29 +5,29 @@ PersonID,ProductName,Amount
 1,Detergent Vase Fairy,1
 1,Rola Bucatarie,2
 1,AB Suc Portocale,2
-2,Paine Graham,4
-2,Telemea Mega,3
-2,Smantana Lichida,2
-2,Servetele Umede,2
-2,Absorbante,1
+2,Paine Graham,3
+2,Croissant Ciocolata,2
+2,Cheddar Cheese,2
+2,Servetele Multirol,2
+2,Sos Barbecue Heinz,1
 2,Apa AQUA,3
 3,Ciocolata Milka,3
 3,Boromir Covrigi,2
-3,Magura,2
-3,Ceai Verde,3
-3,Hartie Igienica,1
+3,Prajituri Boromir,2
+3,Ciorba Instant Knorr,2
+3,Detergent Ariel,1
 3,Pepsi Zero,2
 4,Lapte Napolact,4
 4,Lapte Olympus,3
 4,Cheddar Cheese,2
-4,Detergent Vase Fairy,1
+4,Sapun Dove,1
 4,Grisine cu Susan,2
 4,Apa AQUA,2
 5,Pepsi Zero,3
 5,Red Bull,2
-5,AB Suc Portocale,4
+5,Batoane Cereale Nesquik,3
 5,Muschi Tiganesc Mega,3
-5,Smantana Lichida,2
+5,Biscuiti Digestive,2
 5,Mozarella Mega,2
 6,Telemea Mega,3
 6,Faina 365,4
@@ -39,19 +39,19 @@ PersonID,ProductName,Amount
 7,Frosta Pui Mexican,3
 7,Edenia Snitel de Pui,2
 7,Salam Sibiu Mega,3
-7,Ceai Verde,2
+7,Sos de Soia,2
 7,Portocale Valencia,3
 8,Pizza Salam,4
 8,Cartofi Prajiti,3
 8,Pepsi Max,2
 8,Banane Premium,3
-8,Baghete Cu Usturoi,1
-8,Detergent Vase Fairy,1
+8,Chipsuri Tortilla,1
+8,Sapun Dove,1
 9,Mere Golden,5
 9,Salata Verde,3
 9,Ardei Gras,3
 9,Zahar Brun,2
-9,Muschi File,2
+9,Sare Himalaya Roz,2
 9,Cafea Lavazza,2
 10,Lapte Mega,3
 10,Rosii Cherry,3
@@ -62,31 +62,31 @@ PersonID,ProductName,Amount
 11,Bere Peroni,2
 11,Red Bull,3
 11,Cheddar Cheese,2
-11,Telemea Mega,3
 11,Pufuleti Gusturi,3
+11,Lapte Napolact,3
 11,Pepsi Max,2
 12,Lapte Mega,4
 12,Mozarella Mega,2
 12,Portocale Valencia,2
 12,Apa AQUA,3
-12,Salam Sibiu Mega,2
+12,Tiramisu Desert,1
 12,Detergent Vase Fairy,1
 13,Lapte Olympus,3
 13,Smantana Lichida,2
 13,Banane Premium,3
-13,Iaurt Zuzu,3
-13,Ceai Verde,2
+13,Batoane Cereale Nesquik,3
+13,Sos Pesto Barilla,2
 13,Paste Integrale,2
 14,Sos de Soia,2
 14,Faina 365,3
 14,Zahar Brun,3
 14,Orez Bob Lung,4
 14,Paste Integrale,3
-14,Paine Graham,2
+14,Paine Ciabatta,2
 15,Telemea Mega,4
 15,Cheddar Cheese,3
-15,Ciocolata Milka,2
-15,Pufuleti Gusturi,3
+15,Ciocolata Alune Poiana,2
+15,Biscuiti Digestive,3
 15,Grisine cu Susan,2
 15,Pepsi Zero,3
 16,Salata Verde,3
@@ -99,26 +99,26 @@ PersonID,ProductName,Amount
 17,Conserve Ton,2
 17,Legume pentru supa,3
 17,Paste Integrale,2
-17,Cartofi Prajiti,3
+17,Chipsuri Lay's,3
 17,Pepsi Zero,2
 18,Cafea Lavazza,2
-18,Ceai Verde,2
+18,Croissant Ciocolata,2
 18,Apa AQUA,4
 18,Pepsi Zero,3
-18,AB Suc Portocale,2
+18,Baton Ciocolata Snickers,2
 18,Detergent Vase Fairy,1
 19,Ciocolata Milka,3
 19,Magura,2
 19,Boromir Covrigi,3
-19,Cipsuri Pringles,3
-19,Prajituri Boromir,2
+19,Chipsuri Pringles,3
+19,Cheesecake Mini,2
 19,Apa AQUA,3
 20,Hartie Igienica,3
 20,Servetele Umede,3
 20,Absorbante,2
 20,Rola Bucatarie,4
 20,Detergent Vase Fairy,2
-20,Peste File Congelat,2
+20,File De Somon,2
 21,Mozarella Mega,3
 21,Lapte Olympus,3
 21,Iaurt Zuzu,2
@@ -239,3 +239,13 @@ PersonID,ProductName,Amount
 40,Red Bull,2
 40,Pepsi Zero,2
 40,Ceai Verde,3
+41,Bere Peroni,3
+41,Vin Jidvei,2
+41,Cipsuri Pringles,4
+41,Cartofi Prajiti,3
+41,Ciocolata Milka,5
+41,Pepsi Zero,4
+42,Muschi File,6
+42,Pui intreg,3
+42,Conserve Ton,2
+42,Peste File Congelat,4
