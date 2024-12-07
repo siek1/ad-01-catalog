@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header className="relative bg-gray-100 ">
+    <header className="relative bg-white ">
       <div className="container mx-auto flex items-center justify-between py-4 px-8">
         {/* Left: Mega Image Logo and Text */}
         <div className="flex items-center">

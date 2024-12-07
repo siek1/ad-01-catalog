@@ -46,7 +46,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div
+      className="min-h-screen bg-gray-100 flex flex-col"
+      style={{
+        backgroundImage: "url('/test.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Header />
       <div className="flex flex-col items-center pt-5">
         {/* Grid Layout for Products */}

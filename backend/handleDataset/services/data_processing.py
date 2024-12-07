@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from django.conf import settings
 from sklearn.metrics.pairwise import cosine_similarity
+import random
 
 # Load DataFrame from CSV
 def load_dataframe(filename):
@@ -308,11 +309,36 @@ def get_recommendations_for_person(person_id, top_n=5):
         top_n=top_n-4
     )
 
-    return final_recommendations, discount_recommendations, basicneeds_recommendations, similarity_recommendations
+    combined_recommendations = (
+        final_recommendations + discount_recommendations +
+        basicneeds_recommendations + similarity_recommendations
+    )
+    
+    # Shuffle the combined list
+    random.shuffle(combined_recommendations)
+
+    # Enrich recommendations with details, including imageUrl
+    enriched_recommendations = products_df[
+        products_df['ProductName'].isin(combined_recommendations)
+    ][['ProductName', 'Price', 'Discount']].copy()
+    
+    # Add imageUrl column
+    enriched_recommendations['imageUrl'] = enriched_recommendations['ProductName'].apply(
+        lambda name: f"/{name.replace(' ', '_').replace(',', '').replace('/', '')}.png"
+    )
+
+    # Rename columns to match desired keys
+    enriched_recommendations.rename(
+        columns={
+            'ProductName': 'name',
+            'Price': 'price',
+            'Discount': 'discount'
+        },
+        inplace=True
+    )
+
+    return enriched_recommendations.to_dict(orient='records')
 
 # Example Usage
-recommended_main, recommended_discounted, recommended_basicneeds, recommended_similarity = get_recommendations_for_person(person_id=12, top_n=10)
-print("Main Recommendations:", recommended_main)
-print("Additional Discounted Recommendations:", recommended_discounted)
-print("BasicNeeds Recommendations:", recommended_basicneeds)
-print("Similarity Recommendations:", recommended_similarity)
+comb = get_recommendations_for_person(person_id=11, top_n=10)
+print("Main Recommendations:", comb)

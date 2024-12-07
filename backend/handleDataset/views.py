@@ -1,21 +1,32 @@
 from django.http import JsonResponse
-from .services.data_processing import load_dataframe, process_data
+from django.views.decorators.csrf import csrf_exempt
+from .services.data_processing import load_dataframe, process_data, get_recommendations_for_person
 
+@csrf_exempt
 def DataApi(request):
     # Extract query parameters
     person_id = request.GET.get('personId', None)
+    top_n = request.GET.get('topN', 10)  # Default value for top_n
 
-    # Load and process the data
-    df = load_dataframe()
-    df = process_data(df)
+    try:
+        # Ensure person_id is provided
+        if person_id is None:
+            return JsonResponse({"error": "personId parameter is required"}, status=400)
 
-    # Filter by person_id if provided
-    if person_id is not None:
-        # Assuming your dataframe has a column "personId"
-        df = df[df['personId'] == person_id]
+        # Convert top_n to an integer
+        top_n = int(top_n)
 
-    # Convert the DataFrame into a list of dictionaries
-    data = df.to_dict(orient='records')
+        # Call the recommendation function
+        recommendations = get_recommendations_for_person(person_id=int(person_id), top_n=top_n)
 
-    # Return the data as JSON
-    return JsonResponse(data, safe=False)
+        # Prepare the response
+        data = {
+            "personId": person_id,
+            "topRecommendations": recommendations
+        }
+
+        # Return the data as JSON
+        return JsonResponse(data, status=200)
+    except Exception as e:
+        # Handle errors and return a meaningful message
+        return JsonResponse({"error": str(e)}, status=500)
