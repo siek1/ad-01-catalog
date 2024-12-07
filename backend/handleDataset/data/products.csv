@@ -1,50 +1,68 @@
-ProductName,Category,HealthyIndex,Price,Subcategory
-Lapte Mega,Lactate,10,5.19,Lapte
-Telemea Mega,Lactate,9,9.3,Branzeturi
-Ciocolata Milka,Dulciuri,3,6.09,Dulciuri Diverse
-Magura,Dulciuri,4,1.79,Dulciuri Diverse
-Paine Graham,Panificatie,9,7.99,Paine si Produse de Panificatie
-Boromir Covrigi,Snacks,6,7.89,Rontaieli
-Pizza Salam,Congelate,5,17.99,Produse Congelate
-Banane Premium,Fructe si Legume,10,8.99,Fructe si Legume Proaspete
-Ulei UntDeLemn,IngredienteCulinare,5,7.09,Baza Gatit
-Cocorico pui,Congelate,2,31.99,Produse Congelate
-Lapte Napolact,Lactate,10,9.45,Lapte
-Lapte Olympus,Lactate,10,7.9,Lapte
-Mozarella Mega,Lactate,10,5.49,Branzeturi
-Muschi File,Mezeluri,7,5.49,Carne Procesata
-Salam Sibiu Mega,Mezeluri,7,12.49,Carne Procesata
-Muschi Tiganesc Mega,Mezeluri,7,7.99,Carne Procesata
-Faina 365,IngredienteCulinare,8,3.79,Baza Gatit
-Sos de rosii Gusturi,IngredienteCulinare,9,7.49,Baza Gatit
-Cartofi Albi Gusturi,Fructe si Legume,9,2.99,Fructe si Legume Proaspete
-Rosii Cherry,Fructe si Legume,10,9.99,Fructe si Legume Proaspete
-Apa AQUA,ApaSiSucuri,10,3.39,Bauturi Nonalcoolice
-AB Suc Portocale,ApaSiSucuri,7,7.99,Bauturi Nonalcoolice
-Bere Peroni,Bauturi,1,7.5,Bauturi Alcoolice
-Vin Jidvei,Bauturi,1,19.9,Bauturi Alcoolice
-Pufuleti Gusturi,Snacks,5,1.89,Rontaieli
-Cipsuri Pringles,Snacks,3,12.69,Rontaieli
-Edenia Snitel de Pui,SemiPreparate,7,21.79,Mancare Semi-Preparata
-Frosta Pui Mexican,SemiPreparate,6,16.99,Mancare Semi-Preparata
-Beyond Vegetal,SemiPreparate,8,21.99,Mancare Semi-Preparata
-Cartofi Prajiti,Congelate,3,13.69,Produse Congelate
-Paine Alba,Panificatie,6,6.99,Paine si Produse de Panificatie
-Servetele Umede,Igiena,10,14.99,Produse de Igiena
-Scutece,Igiena,10,67,Produse de Igiena
-Absorbante,Igiena,10,15.99,Produse de Igiena
-Orez Bob Lung,IngredienteCulinare,8,4.99,Baza Gatit
-Supa La Plic,SemiPreparate,6,9.99,Mancare Semi-Preparata
-Cereale Fitness,Dulciuri,7,11.99,Dulciuri Diverse
-Iaurt Zuzu,Lactate,9,3.49,Iaurt
-Smantana Lichida,Lactate,9,4.99,Lapte
-Mere Golden,Fructe si Legume,10,5.99,Fructe si Legume Proaspete
-Portocale Valencia,Fructe si Legume,10,4.99,Fructe si Legume Proaspete
-Pepsi Zero,ApaSiSucuri,4,6.99,Bauturi Nonalcoolice
-Red Bull,Bauturi,2,8.99,Bauturi Alcoolice
-Cheddar Cheese,Lactate,10,12.99,Branzeturi
-Grisine cu Susan,Panificatie,6,4.99,Paine si Produse de Panificatie
-Baghete Cu Usturoi,Panificatie,8,6.49,Paine si Produse de Panificatie
-Mix Legume Congelate,Congelate,7,10.99,Produse Congelate
-Peste File Congelat,Congelate,6,22.99,Produse Congelate
-Prajituri Boromir,Dulciuri,5,12.99,Dulciuri Diverse
+ProductName,Category,HealthyIndex,Price,Subcategory,BasicNeedsIndex,Discount
+Lapte Mega,Lactate,10,5.19,Lapte,10,10
+Telemea Mega,Lactate,9,9.3,Branzeturi,-1,0
+Ciocolata Milka,Dulciuri,3,6.09,Dulciuri Diverse,-1,20
+Magura,Dulciuri,4,1.79,Dulciuri Diverse,-1,0
+Paine Graham,Panificatie,9,7.99,Paine si Produse de Panificatie,10,15
+Boromir Covrigi,Snacks,6,7.89,Rontaieli,-1,0
+Pizza Salam,Congelate,5,17.99,Produse Congelate,-1,25
+Banane Premium,Fructe si Legume,10,8.99,Fructe si Legume Proaspete,10,0
+Ulei UntDeLemn,IngredienteCulinare,5,7.09,Baza Gatit,10,0
+Cocorico pui,Congelate,2,31.99,Produse Congelate,10,10
+Lapte Napolact,Lactate,10,9.45,Lapte,10,5
+Lapte Olympus,Lactate,10,7.9,Lapte,10,0
+Mozarella Mega,Lactate,10,5.49,Branzeturi,-1,0
+Muschi File,Mezeluri,7,5.49,Carne Procesata,-1,0
+Salam Sibiu Mega,Mezeluri,7,12.49,Carne Procesata,-1,30
+Muschi Tiganesc Mega,Mezeluri,7,7.99,Carne Procesata,-1,0
+Faina 365,IngredienteCulinare,8,3.79,Baza Gatit,10,15
+Sos de rosii Gusturi,IngredienteCulinare,9,7.49,Baza Gatit,-1,0
+Cartofi Albi Gusturi,Fructe si Legume,9,2.99,Fructe si Legume Proaspete,-1,0
+Rosii Cherry,Fructe si Legume,10,9.99,Fructe si Legume Proaspete,10,10
+Apa AQUA,ApaSiSucuri,10,3.39,Bauturi Nonalcoolice,10,0
+AB Suc Portocale,ApaSiSucuri,7,7.99,Bauturi Nonalcoolice,-1,20
+Bere Peroni,Bauturi,1,7.5,Bauturi Alcoolice,-1,0
+Vin Jidvei,Bauturi,1,19.9,Bauturi Alcoolice,-1,25
+Pufuleti Gusturi,Snacks,5,1.89,Rontaieli,-1,0
+Cipsuri Pringles,Snacks,3,12.69,Rontaieli,-1,5
+Edenia Snitel de Pui,SemiPreparate,7,21.79,Mancare Semi-Preparata,-1,0
+Frosta Pui Mexican,SemiPreparate,6,16.99,Mancare Semi-Preparata,-1,15
+Beyond Vegetal,SemiPreparate,8,21.99,Mancare Semi-Preparata,-1,0
+Cartofi Prajiti,Congelate,3,13.69,Produse Congelate,-1,20
+Paine Alba,Panificatie,6,6.99,Paine si Produse de Panificatie,10,10
+Servetele Umede,Igiena,-1,14.99,Produse de Igiena,10,0
+Scutece,Igiena,-1,67,Produse de Igiena,10,25
+Absorbante,Igiena,-1,15.99,Produse de Igiena,10,0
+Orez Bob Lung,IngredienteCulinare,8,4.99,Baza Gatit,10,10
+Supa La Plic,SemiPreparate,6,9.99,Mancare Semi-Preparata,-1,0
+Cereale Fitness,Dulciuri,7,11.99,Dulciuri Diverse,-1,0
+Iaurt Zuzu,Lactate,9,3.49,Iaurt,-1,20
+Smantana Lichida,Lactate,9,4.99,Lapte,-1,0
+Mere Golden,Fructe si Legume,10,5.99,Fructe si Legume Proaspete,10,5
+Portocale Valencia,Fructe si Legume,10,4.99,Fructe si Legume Proaspete,-1,0
+Pepsi Zero,ApaSiSucuri,4,6.99,Bauturi Nonalcoolice,-1,15
+Red Bull,Bauturi,2,8.99,Bauturi Alcoolice,-1,0
+Cheddar Cheese,Lactate,10,12.99,Branzeturi,-1,20
+Grisine cu Susan,Panificatie,6,4.99,Paine si Produse de Panificatie,-1,0
+Baghete Cu Usturoi,Panificatie,8,6.49,Paine si Produse de Panificatie,-1,30
+Mix Legume Congelate,Congelate,7,10.99,Produse Congelate,-1,0
+Peste File Congelat,Congelate,6,22.99,Produse Congelate,-1,15
+Prajituri Boromir,Dulciuri,5,12.99,Dulciuri Diverse,-1,0
+Hartie Igienica,Igiena,-1,10.99,Produse de Igiena,10,5
+Rola Bucatarie,Igiena,-1,6.99,Produse de Igiena,10,0
+Ciocolata Poiana,Dulciuri,4,4.99,Dulciuri Diverse,-1,0
+Pepsi Max,ApaSiSucuri,-1,7.49,Bauturi Nonalcoolice,-1,10
+Detergent Vase Fairy,Igiena,-1,8.99,Produse de Igiena,10,20
+Oua proaspete,IngredienteCulinare,9,6.99,Oua,10,5
+Pui intreg,Congelate,8,25.99,Carne,10,15
+Legume pentru supa,Congelate,9,9.99,Produse Congelate,-1,0
+Dovlecei,Fructe si Legume,9,3.49,Fructe si Legume Proaspete,-1,20
+Ceapa Alba,Fructe si Legume,9,2.49,Fructe si Legume Proaspete,-1,0
+Ardei Gras,Fructe si Legume,9,5.99,Fructe si Legume Proaspete,-1,10
+Conserve Ton,Congelate,8,9.99,Conserve,-1,5
+Paste Integrale,IngredienteCulinare,9,7.99,Paste,10,0
+Sos de Soia,IngredienteCulinare,6,8.49,Condimente,-1,0
+Zahar Brun,IngredienteCulinare,5,4.99,Ingrediente Gatit,-1,10
+Cafea Lavazza,Bauturi,6,21.99,Bauturi Nonalcoolice,-1,0
+Ceai Verde,Bauturi,9,12.99,Bauturi Nonalcoolice,-1,10
+Salata Verde,Fructe si Legume,9,4.99,Fructe si Legume Proaspete,10,0
