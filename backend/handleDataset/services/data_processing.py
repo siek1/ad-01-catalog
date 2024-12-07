@@ -249,8 +249,6 @@ def recommend_similarity_products(
     return candidate_products.sort_values('FinalScore', ascending=False).head(top_n)['ProductName'].tolist()
 
 
-
-# Main Recommendation Function
 def get_recommendations_for_person(person_id, top_n=5):
     purchases_df = load_purchases('purchases.csv')
     products_df = load_products('products.csv')
@@ -274,22 +272,45 @@ def get_recommendations_for_person(person_id, top_n=5):
         top_n=top_n
     )
     
-    # Track all recommended items
+    # Step 2: Filter for specific items based on purchase history
+    user_purchases = purchases_df[purchases_df['PersonID'] == person_id]['ProductName'].unique()
+    special_items = ['Scutece', 'Absorbante']
+
+    # Remove "Scutece" and "Absorbante" unless they are in the user's purchase history
+    products_df = products_df[~products_df['ProductName'].isin(special_items) | 
+                              products_df['ProductName'].isin(user_purchases)]
+
+    # Step 3: Split recommendations into healthy and unhealthy groups
     all_recommended = set(final_recommendations)
 
-    # Step 2: Discounted Recommendations
-    discount_recommendations = recommend_discounted_items(
-        person_id,
-        purchases_df,
-        products_df[~products_df['ProductName'].isin(all_recommended)],
-        top_categories,
-        purchased_categories,
-        user_type,
-        top_n=top_n
-    )
-    all_recommended.update(discount_recommendations)
+    # Unhealthy recommendations
+    unhealthy_candidates = products_df[
+        (products_df['HealthyIndex'] <= 5) &
+        (~products_df['ProductName'].isin(all_recommended))
+    ]
+    unhealthy_recommendations = unhealthy_candidates['ProductName'].head(int(top_n * 0.6)).tolist()
 
-    # Step 3: BasicNeeds Recommendations
+    all_recommended.update(unhealthy_recommendations)
+
+    # Healthy recommendations
+    healthy_candidates = products_df[
+        (products_df['HealthyIndex'] > 5) &
+        (~products_df['ProductName'].isin(all_recommended))
+    ]
+    healthy_recommendations = healthy_candidates['ProductName'].head(int(top_n * 0.4)).tolist()
+
+    all_recommended.update(healthy_recommendations)
+
+    # Step 4: Add similarity-based and basic needs recommendations
+    similarity_recommendations = recommend_similarity_products(
+        person_id,
+        user_item_matrix,
+        products_df[~products_df['ProductName'].isin(all_recommended)],
+        all_recommended,
+        top_n=5
+    )
+    all_recommended.update(similarity_recommendations)
+
     basicneeds_recommendations = recommend_basicneeds_items(
         person_id,
         purchases_df,
@@ -300,31 +321,50 @@ def get_recommendations_for_person(person_id, top_n=5):
     )
     all_recommended.update(basicneeds_recommendations)
 
-    # Step 4: Similarity Recommendations
-    similarity_recommendations = recommend_similarity_products(
-        person_id,
-        user_item_matrix,
-        products_df[~products_df['ProductName'].isin(all_recommended)],
-        all_recommended,
-        top_n=top_n-4
+    # Combine all recommendations
+    combined_recommendations = unhealthy_recommendations + healthy_recommendations + list(all_recommended)
+
+    # Create a DataFrame to manage scores
+    recommendation_scores = products_df[products_df['ProductName'].isin(combined_recommendations)].copy()
+
+    # Weighted scoring for relevance
+    recommendation_scores['RelevanceScore'] = 0
+
+    # Boost products from user's top and purchased categories
+    recommendation_scores['RelevanceScore'] += recommendation_scores['Category'].apply(
+        lambda c: 5 if c in top_categories else 3 if c in purchased_categories else 1
     )
 
-    combined_recommendations = (
-        final_recommendations + discount_recommendations +
-        basicneeds_recommendations + similarity_recommendations
+    # Subcategory-specific boost for tailored recommendations
+    user_subcategories = purchases_df.merge(products_df[['ProductName', 'Subcategory']], on='ProductName', how='left')
+    user_subcategories = user_subcategories[user_subcategories['PersonID'] == person_id]
+    frequent_subcategories = user_subcategories['Subcategory'].value_counts().index[:3].tolist()
+
+    recommendation_scores['RelevanceScore'] += recommendation_scores['Subcategory'].apply(
+        lambda sc: 5 if sc in frequent_subcategories else 0
     )
-    
-    # Shuffle the combined list
-    random.shuffle(combined_recommendations)
+
+    # Adjust for health preferences
+    if user_type == 'healthy':
+        recommendation_scores['RelevanceScore'] += recommendation_scores['HealthyIndex']
+    else:
+        recommendation_scores['RelevanceScore'] += recommendation_scores['HealthyIndex'].apply(
+            lambda h: (10 - h) if h < 5 else h * 0.5
+        )
+
+    # Boost items with discounts
+    recommendation_scores['RelevanceScore'] += recommendation_scores['Discount'] / 10
+
+    # Finalize recommendation order
+    recommendation_scores = recommendation_scores.sort_values('RelevanceScore', ascending=False)
+    selected_recommendations = recommendation_scores.head(top_n)
 
     # Enrich recommendations with details, including imageUrl
-    enriched_recommendations = products_df[
-        products_df['ProductName'].isin(combined_recommendations)
-    ][['ProductName', 'Price', 'Discount']].copy()
-    
+    enriched_recommendations = selected_recommendations[['ProductName', 'Price', 'Discount']].copy()
+
     # Add imageUrl column
     enriched_recommendations['imageUrl'] = enriched_recommendations['ProductName'].apply(
-        lambda name: f"/{name.replace(' ', '_').replace(',', '').replace('/', '')}.png"
+        lambda name: f"/{name.replace(',', '').replace('/', '')}.png"
     )
 
     # Rename columns to match desired keys

@@ -1,36 +1,50 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import Product from "./components/Product";
 import Header from "./components/Header";
 
-// Test JSON data
-const products = [
-  { id: 1, name: "Product 1", price: "10 RON", discount: 0, imageUrl: "/Vin Jidvei.png" },
-  { id: 2, name: "Product 2", price: "15 RON", discount: 10, imageUrl: "/Sos de Soia.png" },
-  { id: 3, name: "Product 3", price: "20 RON", discount: 25, imageUrl: "/Paine Alba.png" },
-  { id: 4, name: "Product 4", price: "25 RON", discount: 5, imageUrl: "/download.jpg" },
-  { id: 5, name: "Product 5", price: "30 RON", discount: 0, imageUrl: "/mega-image.jpeg" },
-  { id: 6, name: "Product 6", price: "35 RON", discount: 15, imageUrl: "/download.jpg" },
-  { id: 7, name: "Product 7", price: "40 RON", discount: 0, imageUrl: "/mega-image.jpeg" },
-  { id: 8, name: "Product 8", price: "45 RON", discount: 20, imageUrl: "/download.jpg" },
-  { id: 9, name: "Product 9", price: "50 RON", discount: 0, imageUrl: "/mega-image.jpeg" },
-  { id: 10, name: "Product 10", price: "55 RON", discount: 10, imageUrl: "/mega-image.jpeg" },
-  { id: 11, name: "Product 11", price: "60 RON", discount: 0, imageUrl: "/mega-image.jpeg" },
-  { id: 12, name: "Product 12", price: "65 RON", discount: 25, imageUrl: "/download.jpg" },
-];
+// Define the Product type
+type ProductType = {
+  name: string;
+  price: string;
+  discount: number;
+  imageUrl: string;
+};
 
 export default function Home() {
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 6;
 
+  // Fetch data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/data/?personId=5&topN=24");
+        const data = await response.json();
+
+        // Map the API data to the required format
+        const formattedProducts: ProductType[] = data.topRecommendations.map((item: any) => ({
+          name: item.name,
+          price: `${item.price} RON`,
+          discount: item.discount,
+          imageUrl: item.imageUrl,
+        }));
+
+        setProducts(formattedProducts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // Calculate the products to display
   const startIndex = currentPage * itemsPerPage;
-  const currentProducts = products.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
 
   // Handlers for navigation
   const handleNext = () => {
@@ -61,7 +75,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10">
           {currentProducts.map((product) => (
             <Product
-              key={product.id}
+              key={product.name} // Use 'name' as the unique key
               name={product.name}
               price={product.price}
               discount={product.discount}
