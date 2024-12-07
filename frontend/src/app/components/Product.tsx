@@ -1,30 +1,32 @@
 import React from "react";
-import Image from "next/image";
 
 interface ProductProps {
   name: string;
   price: string;
+  discount: number;
   imageUrl: string;
 }
 
-const Product: React.FC<ProductProps> = ({ name, price, imageUrl }) => {
+const Product: React.FC<ProductProps> = ({ name, price, discount, imageUrl }) => {
   return (
-    <div className="w-1/4 bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden mx-4 flex flex-col items-center">
-      {/* Top - Image */}
-      <div className="w-full h-60 relative flex items-center justify-center bg-gray-50">
-        <Image
+    <div className="relative w-64 bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col">
+      {/* Discount Bubble */}
+      {discount > 0 && (
+        <div className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold py-4 px-5 rounded-full">
+          -{discount}%
+        </div>
+      )}
+      {/* Product Image */}
+      <div className="flex-1 h-full w-full">
+        <img
           src={imageUrl}
           alt={name}
-          layout="intrinsic"
-          width={200} // Force a consistent image width
-          height={200} // Force a consistent image height
-          objectFit="contain" // Ensures the entire image fits within the container
-          className="rounded-md"
+          className="h-full w-full object-cover"
         />
       </div>
-      {/* Bottom - Text */}
+      {/* Product Details */}
       <div className="p-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">{name}</h3>
+        <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
         <p className="text-gray-600">{price}</p>
       </div>
     </div>
