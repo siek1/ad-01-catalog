@@ -248,8 +248,7 @@ def recommend_similarity_products(
 
     return candidate_products.sort_values('FinalScore', ascending=False).head(top_n)['ProductName'].tolist()
 
-
-def get_recommendations_for_person(person_id, top_n=5):
+def get_recommendations_for_person(person_id, top_n=10):
     purchases_df = load_purchases('purchases.csv')
     products_df = load_products('products.csv')
 
@@ -327,21 +326,23 @@ def get_recommendations_for_person(person_id, top_n=5):
     # Create a DataFrame to manage scores
     recommendation_scores = products_df[products_df['ProductName'].isin(combined_recommendations)].copy()
 
+    # Enforce subcategory limit
+    subcategory_limit = 1
+    restricted_recommendations = recommendation_scores.groupby('Subcategory').apply(
+        lambda group: group.head(subcategory_limit) if group.name == 'Lapte' else group
+    ).reset_index(drop=True)
+
+    # Replace excess items with alternatives
+    excess_items = recommendation_scores[~recommendation_scores['ProductName'].isin(restricted_recommendations['ProductName'])]
+    alternative_items = excess_items.head(top_n - len(restricted_recommendations))
+    recommendation_scores = pd.concat([restricted_recommendations, alternative_items])
+
     # Weighted scoring for relevance
     recommendation_scores['RelevanceScore'] = 0
 
     # Boost products from user's top and purchased categories
     recommendation_scores['RelevanceScore'] += recommendation_scores['Category'].apply(
         lambda c: 5 if c in top_categories else 3 if c in purchased_categories else 1
-    )
-
-    # Subcategory-specific boost for tailored recommendations
-    user_subcategories = purchases_df.merge(products_df[['ProductName', 'Subcategory']], on='ProductName', how='left')
-    user_subcategories = user_subcategories[user_subcategories['PersonID'] == person_id]
-    frequent_subcategories = user_subcategories['Subcategory'].value_counts().index[:3].tolist()
-
-    recommendation_scores['RelevanceScore'] += recommendation_scores['Subcategory'].apply(
-        lambda sc: 5 if sc in frequent_subcategories else 0
     )
 
     # Adjust for health preferences
@@ -378,6 +379,7 @@ def get_recommendations_for_person(person_id, top_n=5):
     )
 
     return enriched_recommendations.to_dict(orient='records')
+
 
 # Example Usage
 # comb = get_recommendations_for_person(person_id=11, top_n=10)
