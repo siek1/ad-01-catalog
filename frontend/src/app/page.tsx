@@ -1,112 +1,61 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import Product from "./components/Product";
-import Header from "./components/Header";
-
-// Define the Product type
-type ProductType = {
-  name: string;
-  price: string;
-  discount: number;
-  imageUrl: string;
-};
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 6;
+  const [query, setQuery] = useState("");
 
-  // Fetch data from the API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/data/?personId=5&topN=24");
-        const data = await response.json();
-
-        // Map the API data to the required format
-        const formattedProducts: ProductType[] = data.topRecommendations.map((item: any) => ({
-          name: item.name,
-          price: `${item.price} RON`,
-          discount: item.discount,
-          imageUrl: item.imageUrl,
-        }));
-
-        setProducts(formattedProducts);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Calculate the products to display
-  const startIndex = currentPage * itemsPerPage;
-  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
-
-  // Handlers for navigation
-  const handleNext = () => {
-    if (startIndex + itemsPerPage < products.length) {
-      setCurrentPage(currentPage + 1);
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+  const isValidQuery = () => {
+    const id = parseInt(query, 10);
+    return !isNaN(id) && id >= 1 && id <= 50;
   };
 
   return (
     <div
-      className="min-h-screen bg-gray-100 flex flex-col"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
       style={{
-        backgroundImage: "url('/test.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        // backgroundImage: url('/background.jpg'), // Replace with your background image URL
       }}
     >
-      <Header />
-      <div className="flex flex-col items-center pt-5">
-        {/* Grid Layout for Products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10">
-          {currentProducts.map((product) => (
-            <Product
-              key={product.name} // Use 'name' as the unique key
-              name={product.name}
-              price={product.price}
-              discount={product.discount}
-              imageUrl={product.imageUrl}
-            />
-          ))}
-        </div>
-        {/* Carousel Controls */}
-        <div className="flex items-center justify-center mt-8 gap-6">
-          <button
-            onClick={handlePrevious}
-            disabled={currentPage === 0}
-            className={`p-3 bg-gray-800 text-white rounded-full shadow-md transition-colors duration-300 ${
-              currentPage === 0
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-gray-600"
-            }`}
-          >
-            <AiOutlineArrowLeft className="text-2xl" />
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={startIndex + itemsPerPage >= products.length}
-            className={`p-3 bg-gray-800 text-white rounded-full shadow-md transition-colors duration-300 ${
-              startIndex + itemsPerPage >= products.length
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-gray-600"
-            }`}
-          >
-            <AiOutlineArrowRight className="text-2xl" />
-          </button>
+      {/* Logo on Top Left */}
+      <div className="absolute top-4 left-4">
+        <Image src="/logo.svg" alt="Logo" width={100} height={100} />
+      </div>
+
+      {/* Centered Text */}
+      <div className="text-center">
+        <h1 className="text-5xl font-bold text-white mb-6">Welcome to Our Platform</h1>
+
+        {/* Input Field */}
+        <div className="flex items-center justify-center space-x-2">
+          <input
+            type="text"
+            placeholder="Search here (1-50)..."
+            value={query}
+            onChange={handleInputChange}
+            className="px-4 py-2 rounded-lg border border-gray-300 shadow-md text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          {isValidQuery() ? (
+            <Link
+              href={`http://localhost:3000/data?id=${query}`}
+              className="bg-blue-500 text-black px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+            >
+              Go
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="bg-gray-400 text-black px-6 py-2 rounded-lg cursor-not-allowed"
+            >
+              Invalid
+            </button>
+          )}
         </div>
       </div>
     </div>
