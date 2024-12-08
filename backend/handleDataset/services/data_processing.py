@@ -380,5 +380,5 @@ def get_recommendations_for_person(person_id, top_n=5):
     return enriched_recommendations.to_dict(orient='records')
 
 # Example Usage
-comb = get_recommendations_for_person(person_id=11, top_n=10)
-print("Main Recommendations:", comb)
+# comb = get_recommendations_for_person(person_id=11, top_n=10)
+# print("Main Recommendations:", comb)
