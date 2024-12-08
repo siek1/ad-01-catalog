@@ -12,10 +12,10 @@ const Product: React.FC<ProductProps> = ({ name, price, discount, imageUrl }) =>
   const discountedPrice = discount > 0 ? (originalPrice * (1 - discount / 100)).toFixed(2) : originalPrice;
 
   return (
-    <div className="relative w-full bg-white border border-gray-200 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col p-4">
+    <div className="relative w-full bg-white border border-gray-200 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.15)] flex flex-col p-4">
       {/* Discount Bubble */}
       {discount > 0 && (
-        <div className="absolute top-2 right-2 bg-red-600 text-white text-md font-bold flex items-center justify-center w-20 h-20 rounded-full shadow-lg">
+        <div className="absolute top-2 right-2 bg-red-600 text-white text-lg font-bold flex items-center justify-center w-20 h-20 rounded-full shadow-[0_8px_15px_rgba(255,50,50,0.3)]">
           -{discount}%
         </div>
       )}
@@ -39,7 +39,7 @@ const Product: React.FC<ProductProps> = ({ name, price, discount, imageUrl }) =>
         {/* Price Section */}
         <div className="mt-2 text-center">
           <p
-            className={`text-lg ${
+            className={`text-xl ${
               discount > 0 ? "text-red-500 font-bold" : "text-gray-600"
             }`}
           >
@@ -47,7 +47,7 @@ const Product: React.FC<ProductProps> = ({ name, price, discount, imageUrl }) =>
           </p>
           {/* Reserve space for the original price */}
           <p
-            className={`text-sm ${
+            className={`text-md ${
               discount > 0 ? "text-gray-500 line-through" : "invisible"
             }`}
           >

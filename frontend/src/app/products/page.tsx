@@ -76,7 +76,7 @@ export default function Home() {
     <div
       className="relative min-h-screen flex flex-col"
       style={{
-        backgroundImage: "url('/teest.png')",
+        backgroundImage: "url('/aaa.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -116,7 +116,7 @@ export default function Home() {
             </button>
             <button
               onClick={goToLlm}
-              className="px-6 py-2  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="px-6 py-2  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
             >
               Recipe
             </button>

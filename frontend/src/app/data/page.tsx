@@ -50,7 +50,13 @@ export default function DataPage() {
   }, [personId]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center"
+    style={{
+      backgroundImage: "url('/aaa.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
       {error ? (
         <div className="text-red-600 font-bold">{error}</div>
       ) : (

@@ -46,7 +46,7 @@ const Footer = () => {
 
   return (
     <footer className="sticky bottom-0 bg-zinc-800 text-white p-4">
-      <p>© 2024 Product Magazine. All Rights Reserved.</p>
+      {/* <p>© 2024 Product Magazine. All Rights Reserved.</p> */}
       <form onSubmit={handleSubmit} className="mt-4 flex justify-center items-center gap-4">
         <input
           type="email"
