@@ -19,3 +19,49 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-grid {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-in-product {
+  animation: fadeIn 0.3s ease-in-out;
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .container {
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    grid-template-columns: repeat(3, 1fr); /* Multi-column layout */
+  }
+}

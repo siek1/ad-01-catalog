@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const RecipeComponent: React.FC = () => {
   const [recipeHTML, setRecipeHTML] = useState<string | null>(null);
@@ -19,9 +20,13 @@ const RecipeComponent: React.FC = () => {
 
       try {
         // Fetch the recipe
-        const response = await fetch(`http://127.0.0.1:8000/generate-recipe/?personId=${personId}`);
+        const response = await fetch(
+          `http://127.0.0.1:8000/generate-recipe/?personId=${personId}`
+        );
         if (!response.ok) {
-          throw new Error(`Server error: ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Server error: ${response.status} ${response.statusText}`
+          );
         }
         const data = await response.json();
         setRecipeHTML(data.recipe);
@@ -34,6 +39,15 @@ const RecipeComponent: React.FC = () => {
     fetchData();
   }, [personId]);
 
+  useEffect(() => {
+    // Disable scrolling
+    document.body.style.overflow = "hidden";
+    return () => {
+      // Re-enable scrolling on cleanup
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   if (error) {
     return (
       <div
@@ -45,7 +59,7 @@ const RecipeComponent: React.FC = () => {
           fontSize: "18px",
           color: "red",
           textAlign: "center",
-          backgroundColor: "white", // Set background to white
+          backgroundColor: "white",
         }}
       >
         <p>{error}</p>
@@ -63,8 +77,8 @@ const RecipeComponent: React.FC = () => {
           height: "100vh",
           fontSize: "24px",
           fontWeight: "bold",
-          backgroundColor: "white", // Set background to white
-          color: "black", // Set text to black
+          backgroundColor: "white",
+          color: "black",
         }}
       >
         Loading...
@@ -73,23 +87,30 @@ const RecipeComponent: React.FC = () => {
   }
 
   return (
-    <>
-    <Header />
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "space-between",
         height: "100vh",
-        backgroundColor: "white", // Set background to white
-        color: "black", // Set text to black
+        backgroundColor: "white",
+        color: "black",
+        overflow: "hidden",
       }}
     >
-      {/* Render the HTML content safely */}
-      <div dangerouslySetInnerHTML={{ __html: recipeHTML }} />
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "60px",
+          flexGrow: 1,
+        }}
+      >
+        <div dangerouslySetInnerHTML={{ __html: recipeHTML }} />
+      </div>
+      <Footer />
     </div>
-    </>
-    
   );
 };
 
